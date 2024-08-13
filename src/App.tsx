@@ -1,12 +1,14 @@
 
 import './App.css'
 import { UsersReducer } from './ui/UsersReducer'
+import { Counter } from './features/counter/Counter'
 
 function App() {
 
   return (
     <div>
-      <UsersReducer />
+      <Counter />
+      {/* <UsersReducer /> */}
     </div>
   )
 }
