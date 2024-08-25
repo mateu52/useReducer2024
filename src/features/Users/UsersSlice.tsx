@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type User = {
     id: number;
@@ -6,7 +6,7 @@ export type User = {
     age: number;
 }
 
-type UserState = User[];
+export type UserState = User[];
 
 const initialState: UserState = [
         { id: 1, nickname: 'john', age: 45 }, 
@@ -19,6 +19,18 @@ export const usersSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
-        add: [...state, action.payload]
+        add: (state, action: PayloadAction<User>) => {
+            state.push(action.payload);
+        },
+        remove: (state, action) => {
+            return state.filter((_, index) => index !== action.payload)
+        },
+        update : (state, action ) => {
+            return state.map(user => user.id === action.payload.id ? action.payload: user);
+        }
+        
     }
 })
+
+export const { add, remove, update } = usersSlice.actions;
+export default usersSlice.reducer;
